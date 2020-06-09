@@ -10,6 +10,8 @@ int main(int argc, char *argv[]) {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL ;
     SDL_Rect rectangle ;
+    SDL_Surface *image = NULL;
+    SDL_Texture *texture = NULL;
     //Lancement SDL
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
         SDL_ExitWithError("Initialisation SDL");
