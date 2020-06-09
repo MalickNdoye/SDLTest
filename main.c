@@ -1,34 +1,31 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL2/SDL.h>
+#include "SDLHeader.h"
 
-int main(int argc, char** argv) {
 
-    if (argv[1]==NULL || argc>0) {
-        printf("Hello, World!\n");
-    }
+int main(int argc, char *argv[]) {
+    SDL_Window *window = NULL;
 
-    SDL_Window  * window = NULL ;
+    //Lancement SDL
+    if(SDL_Init(SDL_INIT_VIDEO) != 0)
+        SDL_ExitWithError("Initialisation SDL");
 
-    if (SDL_Init(SDL_INIT_VIDEO) != 0){
-        SDL_Log("ERREUR : Initialisation SDL > %s",SDL_GetError());
-        return EXIT_FAILURE;
-    }
+    //Création fenêtre
+    window = SDL_CreateWindow("Première fenêtre SDL 2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 
-    //Execution du programme
-    window = SDL_CreateWindow("Première fenêtre",
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            800,600,0);
+    if(window == NULL)
+        SDL_ExitWithError("Creation fenetre echouee");
 
-    if (NULL == window){
-        SDL_Log("ERREUR: Echec création fenêtre > %s\n",
-                SDL_GetError());
-        return EXIT_FAILURE ;
-    }
+    /*------------------------------------------------------------*/
+    SDL_Delay(6000);
+    /*------------------------------------------------------------*/
 
-    SDL_Delay(5000);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
     return EXIT_SUCCESS;
+}
+
+void SDL_ExitWithError(const char *message){
+    SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
+    SDL_Quit();
+    exit(EXIT_FAILURE);
 }
