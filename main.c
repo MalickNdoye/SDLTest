@@ -12,11 +12,11 @@ int main(int argc, char *argv[]) {
     SDL_Rect rectangle ;
     SDL_Surface *image = NULL;
     SDL_Texture *texture = NULL;
+
     //Lancement SDL
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
         SDL_ExitWithError("Initialisation SDL");
     }
-
     //Création de fenetre et de rendu
     if (SDL_CreateWindowAndRenderer(800,600,0,&window,&renderer) != 0) {
         SDL_ExitWithError("Impossible de créer la fenêtre et le rendu");
