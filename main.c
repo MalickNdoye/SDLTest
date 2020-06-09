@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL ;
     SDL_Rect rectangle ;
+    SDL_Rect rect ;
     SDL_Surface *image = NULL;
     SDL_Texture *texture = NULL;
 
@@ -42,6 +43,36 @@ int main(int argc, char *argv[]) {
     if(SDL_RenderDrawRect(renderer,&rectangle) != 0){
         SDL_ExitWithError("Impossible de dessiner un rectangle");
     }
+
+    image = SDL_LoadBMP("Greenery800.bmp");
+    if (NULL == image){
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible de charger l'image");
+    }
+
+    texture = SDL_CreateTextureFromSurface(renderer,image);
+    SDL_FreeSurface(image);
+    if (NULL == texture){
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible de charger la texture");
+    }
+
+    if(SDL_QueryTexture(texture,NULL,NULL, &rect.w,&rect.h)!=0){
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible de charger la texture");
+    }
+
+    rect.x = (800 - rect.w)/2 ;
+    rect.y = (600 - rect.h)/2 ;
+
+    if(SDL_RenderCopy(renderer,texture,NULL,&rect)){
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible d'afficher la texture");
+    };
 
     SDL_RenderPresent(renderer);
     SDL_Delay(6000);
