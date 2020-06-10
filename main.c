@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
         SDL_ExitWithError("Initialisation SDL");
     }
     //Création de fenetre et de rendu
-    if (SDL_CreateWindowAndRenderer(800,600,0,&window,&renderer) != 0) {
+    if (SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer) != 0) {
         SDL_ExitWithError("Impossible de créer la fenêtre et le rendu");
     }
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[]) {
     if(SDL_RenderDrawPoint(renderer, 100,450) != 0){
         SDL_ExitWithError("Impossible de dessiner le point");
     }
-    if(SDL_RenderDrawLine(renderer, 50,50,500,500) != 0){
+    if(SDL_RenderDrawLine(renderer, 0,0,WINDOW_WIDTH-1,WINDOW_HEIGHT-1) != 0){
         SDL_ExitWithError("Impossible de dessiner une ligne");
     }
-    rectangle.x = 300;
-    rectangle.y = 300;
+    rectangle.x = 0;
+    rectangle.y = 0;
     rectangle.w = 200;
     rectangle.h = 120;
     if(SDL_SetRenderDrawColor(renderer,155,425,256,SDL_ALPHA_OPAQUE) != 0){
@@ -65,8 +65,8 @@ int main(int argc, char *argv[]) {
         SDL_ExitWithError("Impossible de charger la texture");
     }
 
-    rect.x = (800 - rect.w)/2 ;
-    rect.y = (600 - rect.h)/2 ;
+    rect.x = (WINDOW_WIDTH - rect.w)/2 ;
+    rect.y = (WINDOW_HEIGHT - rect.h)/2 ;
 
     if(SDL_RenderCopy(renderer,texture,NULL,&rect)){
         SDL_DestroyRenderer(renderer);

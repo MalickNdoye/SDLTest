@@ -1,9 +1,9 @@
 //
-// Created by guest on 09/06/2020.
+// Created by guest on 10/06/2020.
 //
 
-#ifndef SDLTEST_SDLHEADER_H
-#define SDLTEST_SDLHEADER_H
+#ifndef SDLTEST_SDLEVENT_H
+#define SDLTEST_SDLEVENT_H
 
 /*
     GNU/Linux et MacOS
@@ -17,9 +17,4 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
-#define WINDOW_HEIGHT 600
-#define WINDOW_WIDTH 1080
-
-void SDL_ExitWithError(const char *message);
-
-#endif //SDLTEST_SDLHEADER_H
+#endif //SDLTEST_SDLEVENT_H
