@@ -17,4 +17,10 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+
+#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1080
+
+void SDL_ExitWithError(const char *message);
+
 #endif //SDLTEST_SDLEVENT_H

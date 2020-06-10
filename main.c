@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
     SDL_Rect rect ;
     SDL_Surface *image = NULL;
     SDL_Texture *texture = NULL;
+    SDL_bool launched = SDL_TRUE ;
+    SDL_Event event ;
 
     //Lancement SDL
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -22,9 +24,10 @@ int main(int argc, char *argv[]) {
     if (SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer) != 0) {
         SDL_ExitWithError("Impossible de créer la fenêtre et le rendu");
     }
-
+    SDL_SetWindowTitle(window,"SDL Introduction");
     /*------------------------------------------------------------*/
-    if(SDL_SetRenderDrawColor(renderer,200,100,267,SDL_ALPHA_OPAQUE) != 0){
+
+    if(SDL_SetRenderDrawColor(renderer,200,100,255,SDL_ALPHA_OPAQUE) != 0){
         SDL_ExitWithError("Impossible de choisir une couleur");
     }
     if(SDL_RenderDrawPoint(renderer, 100,450) != 0){
@@ -37,7 +40,7 @@ int main(int argc, char *argv[]) {
     rectangle.y = 0;
     rectangle.w = 200;
     rectangle.h = 120;
-    if(SDL_SetRenderDrawColor(renderer,155,425,256,SDL_ALPHA_OPAQUE) != 0){
+    if(SDL_SetRenderDrawColor(renderer,155,250,255,SDL_ALPHA_OPAQUE) != 0){
         SDL_ExitWithError("Impossible de choisir une couleur");
     }
     if(SDL_RenderDrawRect(renderer,&rectangle) != 0){
@@ -73,9 +76,39 @@ int main(int argc, char *argv[]) {
         SDL_DestroyWindow(window);
         SDL_ExitWithError("Impossible d'afficher la texture");
     };
-
     SDL_RenderPresent(renderer);
-    SDL_Delay(6000);
+
+    while(launched){
+        while (SDL_PollEvent(&event)){
+            switch (event.type) {
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym){
+                        case SDLK_b:
+                            printf("Appui sur b\n");
+                            break;
+                        default:
+                            continue;
+                    }
+                    break;
+                case SDL_KEYUP:
+                    switch(event.key.keysym.sym){
+                        case SDLK_b:
+                            printf("Relachement sur b\n");
+                            break;
+                        default:
+                            continue;
+                    }
+                    break;
+                case SDL_QUIT:
+                    launched = SDL_FALSE ;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    //SDL_Delay(6000);
     /*------------------------------------------------------------*/
 
     SDL_DestroyRenderer(renderer);
