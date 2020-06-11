@@ -19,7 +19,7 @@
 
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH 1080
-
+#define FPS_LIMIT 16
 void SDL_ExitWithError(const char *message);
-
+void SDL_Limit_FPS(unsigned int limit);
 #endif //SDLTEST_SDLHEADER_H

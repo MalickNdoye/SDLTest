@@ -1,5 +1,6 @@
 #include "SDLHeader.h"
 
+
 /*
  * SDL_RENDERER_SOFTWARE
  * SQL_RENDERER_ACCELERATED
@@ -15,6 +16,7 @@ int main(int argc, char *argv[]) {
     SDL_Texture *texture = NULL;
     SDL_bool launched = SDL_TRUE ;
     SDL_Event event ;
+    unsigned int frame_limit ;
 
     //Lancement SDL
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -78,6 +80,9 @@ int main(int argc, char *argv[]) {
     };
     SDL_RenderPresent(renderer);
 
+    frame_limit = SDL_GetTicks()+FPS_LIMIT;
+    SDL_Limit_FPS(frame_limit);
+    frame_limit = SDL_GetTicks()+FPS_LIMIT;
     while(launched){
         while (SDL_PollEvent(&event)){
             switch (event.type) {
@@ -132,6 +137,19 @@ int main(int argc, char *argv[]) {
     SDL_Quit();
 
     return EXIT_SUCCESS;
+}
+
+void SDL_Limit_FPS(unsigned int limit) {
+    unsigned int ticks = SDL_GetTicks();
+
+    if (limit < ticks){
+        return;
+    }else if (limit > ticks + FPS_LIMIT){
+        SDL_Delay(FPS_LIMIT);
+    }else{
+        SDL_Delay(limit - ticks);
+    }
+
 }
 
 void SDL_ExitWithError(const char *message){
