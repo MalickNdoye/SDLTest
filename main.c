@@ -81,6 +81,22 @@ int main(int argc, char *argv[]) {
     while(launched){
         while (SDL_PollEvent(&event)){
             switch (event.type) {
+                case SDL_WINDOWEVENT:
+                    if (event.window.event == SDL_WINDOWEVENT_LEAVE){
+                        printf("Souris hors de la fenêtre\n");
+                    }else{
+                        printf("Souris sur la fenêtre\n");
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    printf("Position: x=%d\ty=%d\n",event.button.x,event.button.y);
+                    if(event.button.clicks >=2){
+                        printf("Double clic\n");
+                    }
+                    if(event.button.button == SDL_BUTTON_RIGHT){
+                        printf("Clic droit\n");
+                    }
+                    break;
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym){
                         case SDLK_b:
